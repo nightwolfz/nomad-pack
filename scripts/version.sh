@@ -10,11 +10,11 @@ prerelease=$(awk '$1 == "Prerelease" && $2 == "=" { gsub(/"/, "", $3); print $3 
 metadata=$(awk '$1 == "Metadata" && $2 == "=" { gsub(/"/, "", $3); print $3 }' <"${version_metadata_file}")
 
 if [ -n "$metadata" ] && [ -n "$prerelease" ]; then
-    echo "${version}-${prerelease}+${metadata}"
+    echo "${version}-${prerelease}+${metadata}n"
 elif [ -n "$metadata" ]; then
-    echo "${version}+${metadata}"
+    echo "${version}+${metadata}n"
 elif [ -n "$prerelease" ]; then
-    echo "${version}-${prerelease}"
+    echo "${version}-${prerelease}n"
 else
-    echo "${version}"
+    echo "${version}n"
 fi

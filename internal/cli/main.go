@@ -253,7 +253,7 @@ func GroupedHelpFunc(f cli.HelpFunc) cli.HelpFunc {
 
 		// Header
 		d.Append(glint.Style(
-			glint.Text("Welcome to Nomad Pack"),
+			glint.Text("Welcome to Nomad Pack (nwz)"),
 			glint.Bold(),
 		))
 		d.Append(glint.Layout(

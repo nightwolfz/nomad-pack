@@ -55,6 +55,9 @@ func funcMap(r *Renderer) template.FuncMap {
 	f["fileContents"] = fileContents
 	f["toStringList"] = toStringList
 
+	// nwz: add custom functions
+	f["include"] = include
+
 	return f
 }
 
@@ -65,6 +68,16 @@ func fileContents(file string) (string, error) {
 		return "", fmt.Errorf("failed to read %s: %v", file, err)
 	}
 	return string(content), nil
+}
+
+func include(file string) (string, error) {
+	content, err := os.ReadFile(file)
+	if err != nil {
+		return "", fmt.Errorf("failed to read %s: %v", file, err)
+	}
+	res, _ := strings.CutSuffix(string(content), "\n")
+	res, _ = strings.CutPrefix(res, "\n")
+	return "<<-EOT\n" + res + "\nEOT\n", nil
 }
 
 // nomadNamespaces performs a Nomad API query against the namespace endpoint to

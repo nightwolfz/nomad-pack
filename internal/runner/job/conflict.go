@@ -50,7 +50,9 @@ func (r *Runner) checkForConflict(jobName string) error {
 	// created by something other than the package manager and this
 	// process should fail.
 	if existing.Meta == nil {
-		return ErrExistsNonPack{*existing.ID}
+		err = ErrExistsNonPack{*existing.ID}
+		fmt.Printf("Ignoring: %s\n", err)
+		return nil
 	}
 
 	meta := existing.Meta
@@ -60,13 +62,17 @@ func (r *Runner) checkForConflict(jobName string) error {
 	// process should abort.
 	existingDeploymentName, ok := meta[PackDeploymentNameKey]
 	if !ok {
-		return ErrExistsNonPack{*existing.ID}
+		err = ErrExistsNonPack{*existing.ID}
+		fmt.Printf("Ignoring: %s\n", err)
+		return nil
 	}
 
 	// If there is a job with this ID, and a different deployment name, this
 	// process should abort.
 	if existingDeploymentName != r.runnerCfg.DeploymentName {
-		return ErrExistsInDeployment{*existing.ID, existingDeploymentName}
+		err = ErrExistsInDeployment{*existing.ID, existingDeploymentName}
+		fmt.Printf("Ignoring: %s\n", err)
+		return nil
 	}
 
 	return nil
