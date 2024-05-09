@@ -1,5 +1,11 @@
 ## UNRELEASED
 
+IMPROVEMENTS:
+* cli: Emit the modify index in the output of `nomad-pack plan` [[GH-507](https://github.com/hashicorp/nomad-pack/pull/507)]
+
+BUG FIXES:
+* cli: Fix non-interactive UI debug print output [[GH-508](https://github.com/hashicorp/nomad-pack/pull/508)]
+
 ## 0.1.1 (April 26,2024)
 
 IMPROVEMENTS:
